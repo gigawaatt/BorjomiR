@@ -1,0 +1,88 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@model Borjomi.ViewModels.StaffListViewModel
+
+
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Имя: </label>
+        <input name="first_name" class="form-control" />
+
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+
+
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+
+
+
+
+<body>
+    <a asp-action="Create" class="btn btn-primary">Добавить сотрудника</a>
+
+    <table class="table">
+        <thead>
+            <tr align="center">
+                <th>
+                    №
+                </th>
+                <th>
+                    ФИО
+                </th>
+                <th>
+                    Дата рождения
+                </th>
+                <th>
+                    Дата трудоустройства
+                </th>
+                <th>
+                    Дата увольнения
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllStaff)
+            {
+                <tr align="center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.first_name)
+                        @Html.DisplayFor(modelItem => item.middle_name)
+                        @Html.DisplayFor(modelItem => item.last_name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.birth_date)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.bdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.edate)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn">Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn">Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id" class="btn btn-info">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

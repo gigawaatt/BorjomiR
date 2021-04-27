@@ -1,0 +1,46 @@
+﻿
+@model Borjomi.Data.Models.Staff
+
+@{
+
+    ViewBag.Title = "Редактировать";
+
+}
+
+<h2>Сотрудник @Model.id</h2>
+@using (Html.BeginForm("Edit", "Staff", FormMethod.Post))
+{
+<fieldset>
+    @Html.HiddenFor(m => m.id)
+    <p>
+        @Html.LabelFor(m => m.first_name, "Имя")
+        <br />
+        @Html.EditorFor(m => m.first_name)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.last_name, "Фамилия")
+        <br />
+        @Html.EditorFor(m => m.last_name)
+    </p>
+    <p>
+        @Html.LabelFor(m => m.bdate, "Дата поступления")
+        <br />
+        @Html.EditorFor(m => m.bdate)
+
+    </p>
+    <p>
+        @Html.LabelFor(m => m.is_active, "isActive?")
+        <br />
+        @Html.EditorFor(m => m.is_active)
+
+    </p>
+
+
+    <p>
+        @Html.LabelFor(m => m.create_date, "Дата создания УЗ")
+        <br />
+        @Html.EditorFor(m => m.create_date)
+    </p>
+    <p><input type="submit" value="Отправить" /></p>
+</fieldset>
+}

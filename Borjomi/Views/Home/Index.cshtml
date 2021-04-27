@@ -1,0 +1,124 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using PagedList.Mvc;
+@using PagedList;
+
+
+
+@model Borjomi.ViewModels.StaffListViewModel
+
+<form method="get">
+    <div class="form-inline form-group">
+        <p>
+            <label class="control-label">ФИО: </label>
+            <input name="name" class="form-control" />
+        </p>
+
+        <p>
+            <label class="control-label"> Статус сотрудника: </label>
+            <select name="active" asp-items="Model.Active_users" class="form-control"></select>
+        </p>
+
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+        <a href="/" class="btn btn-default">Очистить фильтр</a>
+    </div>
+</form>
+
+
+
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+
+
+
+
+<body>
+    <a asp-action="Create" class="btn btn-primary">Добавить сотрудника</a>
+
+    <table class="table">
+        <thead>
+            <tr align="center">
+                <th>
+                    №
+                </th>
+                <th>
+                    ФИО
+                </th>
+                <th>
+                    Дата рождения
+                </th>
+                <th>
+                    Дата трудоустройства
+                </th>
+                <th>
+                    Дата увольнения
+                </th>
+                <th>
+                    Активность
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AllStaff)
+            {
+                <tr align="center">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.last_name)
+                        @Html.DisplayFor(modelItem => item.first_name)
+                        @Html.DisplayFor(modelItem => item.middle_name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.birth_date)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.bdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.edate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.is_active)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id" class="btn">Изменить</a> |
+                        <a asp-action="Details" asp-route-id="@item.id" class="btn">Детали</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id" class="btn">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.PageViewModel.HasPreviousPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+           class="btn btn-outline-dark">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Назад
+        </a>
+    }
+    @if (Model.PageViewModel.HasNextPage)
+    {
+        <a asp-action="Index"
+           asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+           class="btn btn-outline-dark">
+            Вперед
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </a>
+    }
+    <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
+
+</body>
+</html>
